@@ -1,0 +1,7 @@
+C:\Users\Vlad\Desktop\parallel and distributed computing\lab1\Bank App Multithreading\Bank App Multithreading\bin\Debug\Bank App Multithreading.exe.config
+C:\Users\Vlad\Desktop\parallel and distributed computing\lab1\Bank App Multithreading\Bank App Multithreading\bin\Debug\Bank App Multithreading.exe
+C:\Users\Vlad\Desktop\parallel and distributed computing\lab1\Bank App Multithreading\Bank App Multithreading\bin\Debug\Bank App Multithreading.pdb
+C:\Users\Vlad\Desktop\parallel and distributed computing\lab1\Bank App Multithreading\Bank App Multithreading\obj\Debug\Bank App Multithreading.csprojResolveAssemblyReference.cache
+C:\Users\Vlad\Desktop\parallel and distributed computing\lab1\Bank App Multithreading\Bank App Multithreading\obj\Debug\Bank App Multithreading.csproj.CoreCompileInputs.cache
+C:\Users\Vlad\Desktop\parallel and distributed computing\lab1\Bank App Multithreading\Bank App Multithreading\obj\Debug\Bank App Multithreading.exe
+C:\Users\Vlad\Desktop\parallel and distributed computing\lab1\Bank App Multithreading\Bank App Multithreading\obj\Debug\Bank App Multithreading.pdb
