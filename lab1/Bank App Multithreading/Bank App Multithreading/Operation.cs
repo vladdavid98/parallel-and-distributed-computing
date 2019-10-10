@@ -15,7 +15,6 @@ namespace Bank_App_Multithreading
         internal int RecipientAccId { get; set; }
         public int TransactionValue { get; set; }
 
-        // TODO: 
         public Operation(Account sender, Account recipient, int transVal)
         {
             SerialNr = ++GlobalOperationSerialNr;

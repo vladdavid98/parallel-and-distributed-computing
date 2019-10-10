@@ -9,24 +9,31 @@ namespace Bank_App_Multithreading
 {
     internal class OperationLog
     {
-        private readonly List<Operation> log;
+        private readonly List<Operation> _log;
 
-
-
-        public OperationLog() => log = new List<Operation>();
-
+        public OperationLog() => _log = new List<Operation>();
 
         public void AddToLog(Operation op)
         {
-            log.Add(op);
+            _log.Add(op);
+        }
+
+        public int Count()
+        {
+            return _log.Count();
+        }
+
+        public Operation GetOperationFromLog(int operationPosition)
+        {
+            return _log[operationPosition];
         }
 
         public override string ToString()
         {
             string s = "";
-            for (int i = 0; i < log.Count(); i++)
+            for (int i = 0; i < _log.Count(); i++)
             {
-                s += log[i].ToString();
+                s += _log[i].ToString();
                 s += "\n";
             }
             s += "\n\n";

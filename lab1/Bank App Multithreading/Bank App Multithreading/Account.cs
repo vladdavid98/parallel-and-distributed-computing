@@ -20,6 +20,22 @@ namespace Bank_App_Multithreading
         public int AccountBalance { get; set; }
         internal OperationLog OperationLog { get; set; }
 
+        public bool ConsistencyCheck()
+        {
+            int sum = 2000;
+
+            for (int i = 0; i < OperationLog.Count();i++)
+            {
+                if (OperationLog.GetOperationFromLog(i).RecipientAccId == AccountId)
+                    sum += OperationLog.GetOperationFromLog(i).TransactionValue;
+                else if (OperationLog.GetOperationFromLog(i).SenderAccId == AccountId)
+                    sum -= OperationLog.GetOperationFromLog(i).TransactionValue;
+                else throw new ApplicationException("Problem in operation log.");
+            }
+
+            return sum == AccountBalance;
+        }
+
         public override string ToString()
         {
             string s = "";
