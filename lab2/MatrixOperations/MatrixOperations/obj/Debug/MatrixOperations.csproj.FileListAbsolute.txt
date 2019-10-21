@@ -1,0 +1,7 @@
+C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab2\MatrixOperations\MatrixOperations\bin\Debug\MatrixOperations.exe.config
+C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab2\MatrixOperations\MatrixOperations\bin\Debug\MatrixOperations.exe
+C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab2\MatrixOperations\MatrixOperations\bin\Debug\MatrixOperations.pdb
+C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab2\MatrixOperations\MatrixOperations\obj\Debug\MatrixOperations.csprojAssemblyReference.cache
+C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab2\MatrixOperations\MatrixOperations\obj\Debug\MatrixOperations.csproj.CoreCompileInputs.cache
+C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab2\MatrixOperations\MatrixOperations\obj\Debug\MatrixOperations.exe
+C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab2\MatrixOperations\MatrixOperations\obj\Debug\MatrixOperations.pdb

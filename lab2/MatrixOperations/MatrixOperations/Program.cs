@@ -21,8 +21,8 @@ namespace MatrixOperations
         {
 //            Matrix m1 = BuildRandomMatrix(10000, 10000);
 //            Matrix m2 = BuildRandomMatrix(10000, 10000);
-            Matrix m3 = BuildRandomMatrix(700, 700);
-            Matrix m4 = BuildRandomMatrix(700, 700);
+            Matrix m3 = BuildRandomMatrix(300, 300);
+            Matrix m4 = BuildRandomMatrix(300, 300);
             //            Console.WriteLine(m1);
             //            Console.WriteLine(m2);
 

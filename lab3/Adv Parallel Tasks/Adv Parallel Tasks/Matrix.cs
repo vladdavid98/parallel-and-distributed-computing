@@ -179,6 +179,55 @@ namespace MatrixOperations
             return mResult;
         }
 
+        public static async Task<Matrix> MatrixSumWithTasksAsync(Matrix m1, Matrix m2)
+        {
+            int nrOfThreads = Program.NrThreads;
+            var threads = new List<Thread>();
+
+            if (m1.NrRows != m2.NrRows || m1.NrColumns != m2.NrColumns)
+                throw new Exception("Impossible to add, due to wrong matrix sizes.");
+
+            Matrix mResult = new Matrix(new int[m1.NrRows, m2.NrColumns]);
+
+            int totalElems = mResult.NrRows * mResult.NrColumns;
+            int nrOfOperationsPerThread = totalElems / nrOfThreads;
+
+            int starti = 0;
+            int startj = 0;
+            int endi = 0;
+            int endj = 0;
+
+            for (int i = 1; i <= totalElems; i++)
+            {
+                if (endj == mResult.NrColumns)
+                {
+                    endi++;
+                    endj = 0;
+                }
+
+                if (i % nrOfOperationsPerThread == 0)
+                {
+                    int[] sp = { starti, startj };
+                    int[] ep = { endi, endj };
+                    await Task.Run(() => { GetSumResultForPosition(mResult, m1, m2, sp, ep); });
+                    starti = endi;
+                    startj = endj;
+                }
+
+                if (i > nrOfOperationsPerThread * nrOfThreads)
+                {
+                    int[] sp = { starti, startj };
+                    int[] ep = { mResult.NrRows - 1, mResult.NrColumns - 1 };
+                    await Task.Run(() => { GetSumResultForPosition(mResult, m1, m2, sp, ep); });
+                    i = totalElems;
+                }
+
+                endj++;
+            }
+
+            return mResult;
+        }
+
 
         public static Matrix MatrixMultiplicationWithThreads(Matrix m1, Matrix m2)
         {
@@ -377,28 +426,29 @@ namespace MatrixOperations
 
                 if (i % nrOfOperationsPerThread == 0)
                 {
-                    int[] sp = { starti, startj };
-                    int[] ep = { endi, endj };
+                    int[] sp = {starti, startj};
+                    int[] ep = {endi, endj};
                     await Task.Run(() => GetMultiplicationResultForPosition(mResult, m1, m2, sp, ep));
-                    
+
                     starti = endi;
                     startj = endj;
                 }
 
                 if (i > nrOfOperationsPerThread * nrOfThreads)
                 {
-                    int[] sp = { starti, startj };
-                    int[] ep = { mResult.NrRows - 1, mResult.NrColumns - 1 };
+                    int[] sp = {starti, startj};
+                    int[] ep = {mResult.NrRows - 1, mResult.NrColumns - 1};
                     await Task.Run(() => GetMultiplicationResultForPosition(mResult, m1, m2, sp, ep));
                     i = totalElems;
                 }
 
                 endj++;
             }
+
             return mResult;
         }
 
-        private static void GetSumResultForPosition(Matrix mResult, Matrix m1, Matrix m2, int[] startingPoint,
+        private static async Task GetSumResultForPosition(Matrix mResult, Matrix m1, Matrix m2, int[] startingPoint,
             int[] endingPoint)
         {
             int i = startingPoint[0];

@@ -21,36 +21,36 @@ namespace MatrixOperations
 
         private static async Task Main(string[] args)
         {
-            //            Matrix m1 = BuildRandomMatrix(15000, 10000);
-            //            Matrix m2 = BuildRandomMatrix(15000, 10000);
-            //            Matrix m3 = BuildRandomMatrix(10, 2000000);
-            //            Matrix m4 = BuildRandomMatrix(2000000, 10);
+            Matrix m1 = BuildRandomMatrix(15000, 10000);
+            Matrix m2 = BuildRandomMatrix(15000, 10000);
+//            Matrix m3 = BuildRandomMatrix(10, 2000000);
+//            Matrix m4 = BuildRandomMatrix(2000000, 10);
 
-            Matrix m5 = BuildRandomMatrix(10, 2000000);
-            Matrix m6 = BuildRandomMatrix(2000000, 10);
+//            Matrix m5 = BuildRandomMatrix(10, 2000000);
+//            Matrix m6 = BuildRandomMatrix(2000000, 10);
             //            Console.WriteLine(m1);
             //            Console.WriteLine(m2);
 
             Stopwatch stopWatch = new Stopwatch();
             Console.WriteLine("Starting Multiplication");
             stopWatch.Start();
-            //            Matrix result1 = Matrix.MatrixSumWithThreadPool(m1, m2);
-            //            Matrix result2 = Matrix.MatrixMultiplicationWithTasks(m3, m4);
+//            Matrix result1 = Matrix.MatrixSumWithThreadPool(m1, m2);
+            Matrix result2 = await Matrix.MatrixSumWithTasksAsync(m1, m2);
+            
+//            Matrix result2 = Matrix.MatrixMultiplicationWithTasks(m3, m4);
 
-            Matrix result3 = await Matrix.MatrixMultiplicationWithTasksAsync(m5, m6);
+//            Matrix result3 = await Matrix.MatrixMultiplicationWithTasksAsync(m5, m6);
 
             stopWatch.Stop();
 
-            Console.WriteLine(result3);
+//            Console.WriteLine(result3);
 
 
             TimeSpan ts = stopWatch.Elapsed;
-            string elapsedTime = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                ts.Hours, ts.Minutes, ts.Seconds,
-                ts.Milliseconds / 10);
+            string elapsedTime = $"{ts.Hours:00}:{ts.Minutes:00}:{ts.Seconds:00}.{ts.Milliseconds / 10:00}";
             Console.WriteLine("RunTime " + elapsedTime);
 
-            Console.ReadKey();
+//            Console.ReadKey();
         }
     }
 }
