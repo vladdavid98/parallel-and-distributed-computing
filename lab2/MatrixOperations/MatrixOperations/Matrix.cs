@@ -1,135 +1,217 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace MatrixOperations
 {
-    class Matrix
+    internal class Matrix
     {
-        //private int[,] matrixElements;
-        public int Row { get; set; }
-        public int Column { get; set; }
-        private readonly int[,] matrixElements;
-
-        // int[,] array2D = new int[,] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-
-        public Matrix(int[,] matrixElems)
+        public Matrix(int[,] newArr)
         {
-            this.matrixElements = matrixElems;
-            Row = matrixElems.GetLength(0);
-            Column = matrixElems.GetLength(1);
+            Array2D = newArr;
+            NrRows = newArr.GetLength(0);
+            NrColumns = newArr.GetLength(1);
         }
 
-        public int PutElem(int line, int column, int newValue)
+        public int[,] Array2D { get; set; }
+
+        public int NrRows { get; set; }
+
+        public int NrColumns { get; set; }
+
+        public int[] GetRow(int rowNr)
         {
-            int oldValue = matrixElements[line, column];
-            matrixElements[line, column] = newValue;
-            return oldValue;
-        }
-
-        public int GetElem(int line, int column)
-        {
-            return matrixElements[line, column];
-        }
-
-        public int GetLength(int dimension)
-        {
-            return matrixElements.GetLength(dimension);
-        }
-
-        public Matrix RandomValues()
-        {
-            Random rnd = new Random();
-            for (int i = 0; i < Row; i++)
-            for (int j = 0; j < Column; j++)
-                matrixElements[i, j] = rnd.Next(10);
-            return this;
-        }
-
-        public int[] GetColumn(int i)
-        {
-            var res = new int[Row];
-            for (int j = 0; j < Row; j++)
-                res[j] = matrixElements[j, i];
-            return res;
-        }
-
-        public int[] GetRow(int i)
-        {
-            var res = new int[Column];
-            for (int j = 0; j < Column; j++)
-                res[j] = matrixElements[i, j];
-            return res;
-        }
-
-        public int this[int i, int j]
-        {
-            get => matrixElements[i, j];
-            set => matrixElements[i, j] = value;
-        }
-
-
-        public static Matrix operator *(Matrix a, Matrix b)
-        {
-            
-            var nrThreads = 1;
-            Matrix result = new Matrix(new int[a.Row, b.Column]);
-            var threads = new List<Thread>();
-            for (int i = 0; i < a.Row * b.Column; i++)
-            {
-                // int tempi = i;
-                // Thread thread = new Thread(() => VectorMult(tempi, a, b, result));
-                // thread.Start();
-                // threads.Add(thread);
-
-            }
-
-            foreach (Thread t in threads)
-                t.Join();
+            var result = new int[NrColumns];
+            for (int i = 0; i < NrColumns; i++)
+                result[i] = Array2D[rowNr, i];
             return result;
         }
 
-        // TODO: STUFF
-        public static void MultiplyBetweenIndexes(int tmp1, int tmp2, Matrix a, Matrix b, Matrix result)
+        public int[] GetColumn(int columnNr)
         {
-            for (int tmp = tmp1; tmp < tmp2; tmp++)
-            {
-                int i = tmp / b.Column;
-                int j = tmp % b.Column;
-                var x = a.GetRow(i);
-                var y = b.GetColumn(j);
-                for (int k = 0; k < x.Length; k++)
-                    result[i, j] += x[k] * y[k];
-            }
+            var result = new int[NrRows];
+            for (int i = 0; i < NrRows; i++)
+                result[i] = Array2D[i, columnNr];
+            return result;
         }
-
-        public static void VectorMult(int tmp, Matrix a, Matrix b, Matrix result)
-        {
-            int i = tmp / b.Column;
-            int j = tmp % b.Column;
-            var x = a.GetRow(i);
-            var y = b.GetColumn(j);
-            for (int k = 0; k < x.Length; k++)
-                result[i, j] += x[k] * y[k];
-            //Console.WriteLine("Calculate element{0}{1}", i, j);
-        }
-
 
         public override string ToString()
         {
             string s = "";
-            for (int i = 0; i < matrixElements.GetLength(0); i++)
+            for (int i = 0; i < NrRows; i++)
             {
-                for (int j = 0; j < matrixElements.GetLength(1); j++)
+                for (int j = 0; j < NrColumns; j++)
                 {
-                    s += matrixElements[i,j];
+                    s += Array2D[i, j];
                     s += " ";
                 }
 
-                s += "\n";
+                s += Environment.NewLine;
             }
 
             return s;
+        }
+
+        public static Matrix MatrixSum(Matrix m1, Matrix m2)
+        {
+            int nrOfThreads = Program.nrThreads;
+            var threads = new List<Thread>();
+
+            if (m1.NrRows != m2.NrRows || m1.NrColumns != m2.NrColumns)
+                throw new Exception("Impossible to add, due to wrong matrix sizes.");
+
+            Matrix mResult = new Matrix(new int[m1.NrRows, m2.NrColumns]);
+
+            int totalElems = mResult.NrRows * mResult.NrColumns;
+            int nrOfOperationsPerThread = totalElems / nrOfThreads;
+
+            int starti = 0;
+            int startj = 0;
+            int endi = 0;
+            int endj = 0;
+
+            for (int i = 1; i <= totalElems; i++)
+            {
+                if (endj == mResult.NrColumns)
+                {
+                    endi++;
+                    endj = 0;
+                }
+
+                if (i % nrOfOperationsPerThread == 0)
+                {
+                    int[] sp = {starti, startj};
+                    int[] ep = {endi, endj};
+                    threads.Add(new Thread(() => { GetSumResultForPositions(mResult, m1, m2, sp, ep); }));
+                    starti = endi;
+                    startj = endj;
+                }
+
+                if (i > nrOfOperationsPerThread * nrOfThreads)
+                {
+                    int[] sp = {starti, startj};
+                    int[] ep = {mResult.NrRows - 1, mResult.NrColumns - 1};
+                    threads.Add(new Thread(() => { GetSumResultForPositions(mResult, m1, m2, sp, ep); }));
+                    i = totalElems;
+                }
+
+                endj++;
+            }
+
+            foreach (Thread t in threads) t.Start();
+
+            foreach (Thread t in threads) t.Join();
+
+            return mResult;
+        }
+
+
+        public static Matrix MatrixMultiplication(Matrix m1, Matrix m2)
+        {
+            int nrOfThreads = Program.nrThreads;
+            var threads = new List<Thread>();
+
+            if (m1.NrColumns != m2.NrRows)
+                throw new Exception("Impossible to multiply, due to wrong matrix sizes.");
+
+            Matrix mResult = new Matrix(new int[m1.NrRows, m2.NrColumns]);
+
+            int totalElems = mResult.NrRows * mResult.NrColumns;
+            int nrOfOperationsPerThread = totalElems / nrOfThreads;
+
+            int starti = 0;
+            int startj = 0;
+            int endi = 0;
+            int endj = 0;
+
+            for (int i = 1; i <= totalElems; i++)
+            {
+                if (endj == mResult.NrColumns)
+                {
+                    endi++;
+                    endj = 0;
+                }
+
+                if (i % nrOfOperationsPerThread == 0)
+                {
+                    int[] sp = {starti, startj};
+                    int[] ep = {endi, endj};
+                    threads.Add(new Thread(() => { GetMultiplicationResultForPositions(mResult, m1, m2, sp, ep); }));
+                    starti = endi;
+                    startj = endj;
+                }
+
+                if (i > nrOfOperationsPerThread * nrOfThreads)
+                {
+                    int[] sp = {starti, startj};
+                    int[] ep = {mResult.NrRows - 1, mResult.NrColumns - 1};
+                    threads.Add(new Thread(() => { GetMultiplicationResultForPositions(mResult, m1, m2, sp, ep); }));
+                    i = totalElems;
+                }
+
+                endj++;
+            }
+
+            foreach (Thread t in threads) t.Start();
+
+            foreach (Thread t in threads) t.Join();
+
+            return mResult;
+        }
+
+        private static void GetSumResultForPositions(Matrix mResult, Matrix m1, Matrix m2, int[] startingPoint,
+            int[] endingPoint)
+        {
+            int i = startingPoint[0];
+            int j = startingPoint[1];
+            int k = endingPoint[0];
+            int l = endingPoint[1];
+
+            while (!(i == k && j == l))
+            {
+                mResult.Array2D[i, j] = m1.Array2D[i, j] + m2.Array2D[i, j];
+                j++;
+                if (j == mResult.NrColumns)
+                {
+                    i++;
+                    j = 0;
+                }
+            }
+
+            if (i == k && j == l) mResult.Array2D[i, j] = m1.Array2D[i, j] + m2.Array2D[i, j];
+        }
+
+        private static void GetMultiplicationResultForPositions(Matrix mResult, Matrix m1, Matrix m2,
+            int[] startingPoint,
+            int[] endingPoint)
+        {
+            int i = startingPoint[0];
+            int j = startingPoint[1];
+            int k = endingPoint[0];
+            int l = endingPoint[1];
+            int[] m1Row;
+            int[] m2Column;
+
+            while (!(i == k && j == l))
+            {
+                m1Row = m1.GetRow(i);
+                m2Column = m2.GetColumn(j);
+                mResult.Array2D[i, j] = m1Row.Select((element, index) => element * m2Column[index]).Sum();
+                j++;
+                if (j == mResult.NrColumns)
+                {
+                    i++;
+                    j = 0;
+                }
+            }
+
+            if (i == k && j == l)
+            {
+                m1Row = m1.GetRow(i);
+                m2Column = m2.GetColumn(j);
+                mResult.Array2D[i, j] = m1Row.Select((element, index) => element * m2Column[index]).Sum();
+            }
         }
     }
 }
