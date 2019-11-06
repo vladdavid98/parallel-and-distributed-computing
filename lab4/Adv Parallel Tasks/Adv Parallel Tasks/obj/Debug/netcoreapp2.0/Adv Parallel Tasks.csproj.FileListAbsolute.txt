@@ -1,0 +1,33 @@
+C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Adv Parallel Tasks.deps.json
+C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Adv Parallel Tasks.runtimeconfig.json
+C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Adv Parallel Tasks.runtimeconfig.dev.json
+C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Adv Parallel Tasks.dll
+C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Adv Parallel Tasks.pdb
+C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Adv Parallel Tasks.csprojAssemblyReference.cache
+C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Adv Parallel Tasks.csproj.CoreCompileInputs.cache
+C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Adv Parallel Tasks.AssemblyInfoInputs.cache
+C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Adv Parallel Tasks.AssemblyInfo.cs
+C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Adv Parallel Tasks.dll
+C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Adv Parallel Tasks.pdb
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Adv Parallel Tasks.csprojResolveAssemblyReference.cache
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Adv Parallel Tasks.csproj.CoreCompileInputs.cache
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Adv Parallel Tasks.AssemblyInfoInputs.cache
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Adv Parallel Tasks.AssemblyInfo.cs
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Adv Parallel Tasks.dll
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Adv Parallel Tasks.pdb
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Adv Parallel Tasks.deps.json
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Adv Parallel Tasks.runtimeconfig.json
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Adv Parallel Tasks.runtimeconfig.dev.json
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Adv Parallel Tasks.dll
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab3\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Adv Parallel Tasks.pdb
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Adv Parallel Tasks.deps.json
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Adv Parallel Tasks.runtimeconfig.json
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Adv Parallel Tasks.runtimeconfig.dev.json
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Adv Parallel Tasks.dll
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Adv Parallel Tasks.pdb
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Adv Parallel Tasks.csprojResolveAssemblyReference.cache
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Adv Parallel Tasks.csproj.CoreCompileInputs.cache
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Adv Parallel Tasks.AssemblyInfoInputs.cache
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Adv Parallel Tasks.AssemblyInfo.cs
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Adv Parallel Tasks.dll
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Adv Parallel Tasks.pdb

@@ -1,0 +1,6 @@
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab2\MatrixOperations\MatrixOperations\bin\Release\MatrixOperations.exe.config
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab2\MatrixOperations\MatrixOperations\bin\Release\MatrixOperations.exe
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab2\MatrixOperations\MatrixOperations\bin\Release\MatrixOperations.pdb
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab2\MatrixOperations\MatrixOperations\obj\Release\MatrixOperations.csproj.CoreCompileInputs.cache
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab2\MatrixOperations\MatrixOperations\obj\Release\MatrixOperations.exe
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab2\MatrixOperations\MatrixOperations\obj\Release\MatrixOperations.pdb

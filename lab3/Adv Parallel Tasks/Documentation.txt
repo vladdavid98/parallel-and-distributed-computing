@@ -1,0 +1,10 @@
+Configuration: i5 7300HQ, 8GB RAM, SSD
+For two matrices having size 10 X 2000000, their product can be computed:
+
+With a task, asynchronously: 8.22 - 8.88
+With 1 task: 8.87						With 4 tasks: 2.48-2.59
+With 1 thread, in thread pool: 8.22		With 4 threads, in thread pool: 2.58-3.06
+With 1 thread: 8.17						With 4 threads: 2.54-2.69
+
+After many tests, I have concluded that for this matrix size and my setup,
+ 4 threads are the sweet spot regarding performance.

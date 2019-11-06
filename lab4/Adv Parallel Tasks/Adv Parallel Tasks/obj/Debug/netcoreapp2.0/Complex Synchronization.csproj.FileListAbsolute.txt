@@ -1,0 +1,11 @@
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Complex Synchronization.deps.json
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Complex Synchronization.runtimeconfig.json
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Complex Synchronization.runtimeconfig.dev.json
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Complex Synchronization.dll
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\bin\Debug\netcoreapp2.0\Complex Synchronization.pdb
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Complex Synchronization.csproj.CoreCompileInputs.cache
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Complex Synchronization.AssemblyInfoInputs.cache
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Complex Synchronization.AssemblyInfo.cs
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Complex Synchronization.dll
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Complex Synchronization.pdb
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab4\Adv Parallel Tasks\Adv Parallel Tasks\obj\Debug\netcoreapp2.0\Complex Synchronization.csprojAssemblyReference.cache

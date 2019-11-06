@@ -124,7 +124,7 @@ namespace MatrixOperations
             int startj = 0;
             int endi = 0;
             int endj = 0;
-            var events = new ManualResetEvent[nrOfThreads];
+            CountdownEvent countdown = new CountdownEvent(nrOfThreads);
             int j = 0;
 
             for (int i = 1; i <= totalElems; i++)
@@ -139,14 +139,12 @@ namespace MatrixOperations
                 {
                     int[] sp = {starti, startj};
                     int[] ep = {endi, endj};
-                    ThreadPool.QueueUserWorkItem(state =>
+                    ThreadPool.QueueUserWorkItem(async state =>
                     {
-                        events[j] = new ManualResetEvent(false);
-                        events[j].Set();
                         j++;
-                        GetSumResultForPosition(mResult, m1, m2, sp, ep);
+                        await GetSumResultForPosition(mResult, m1, m2, sp, ep);
+                        countdown.Signal();
                     });
-
                     starti = endi;
                     startj = endj;
                 }
@@ -155,12 +153,11 @@ namespace MatrixOperations
                 {
                     int[] sp = {starti, startj};
                     int[] ep = {mResult.NrRows - 1, mResult.NrColumns - 1};
-                    ThreadPool.QueueUserWorkItem(state =>
+                    ThreadPool.QueueUserWorkItem(async state =>
                     {
-                        events[j] = new ManualResetEvent(false);
-                        events[j].Set();
                         j++;
-                        GetSumResultForPosition(mResult, m1, m2, sp, ep);
+                        await GetSumResultForPosition(mResult, m1, m2, sp, ep);
+                        countdown.Signal();
                     });
                     i = totalElems;
                 }
@@ -168,13 +165,7 @@ namespace MatrixOperations
                 endj++;
             }
 
-            try
-            {
-                WaitHandle.WaitAll(events);
-            }
-            catch
-            {
-            }
+            countdown.Wait();
 
             return mResult;
         }
@@ -207,9 +198,59 @@ namespace MatrixOperations
 
                 if (i % nrOfOperationsPerThread == 0)
                 {
+                    int[] sp = {starti, startj};
+                    int[] ep = {endi, endj};
+                    await Task.Run(() => { GetSumResultForPosition(mResult, m1, m2, sp, ep); });
+                    starti = endi;
+                    startj = endj;
+                }
+
+                if (i > nrOfOperationsPerThread * nrOfThreads)
+                {
+                    int[] sp = {starti, startj};
+                    int[] ep = {mResult.NrRows - 1, mResult.NrColumns - 1};
+                    await Task.Run(() => { GetSumResultForPosition(mResult, m1, m2, sp, ep); });
+                    i = totalElems;
+                }
+
+                endj++;
+            }
+
+            return mResult;
+        }
+
+        public static Matrix MatrixSumWithTasks(Matrix m1, Matrix m2)
+        {
+            int nrOfThreads = Program.NrThreads;
+            var tasks = new List<Task>();
+
+            if (m1.NrRows != m2.NrRows || m1.NrColumns != m2.NrColumns)
+                throw new Exception("Impossible to add, due to wrong matrix sizes.");
+
+            Matrix mResult = new Matrix(new int[m1.NrRows, m2.NrColumns]);
+
+            int totalElems = mResult.NrRows * mResult.NrColumns;
+            int nrOfOperationsPerThread = totalElems / nrOfThreads;
+
+            int starti = 0;
+            int startj = 0;
+            int endi = 0;
+            int endj = 0;
+
+            for (int i = 1; i <= totalElems; i++)
+            {
+                if (endj == mResult.NrColumns)
+                {
+                    endi++;
+                    endj = 0;
+                }
+
+                if (i % nrOfOperationsPerThread == 0)
+                {
                     int[] sp = { starti, startj };
                     int[] ep = { endi, endj };
-                    await Task.Run(() => { GetSumResultForPosition(mResult, m1, m2, sp, ep); });
+                    Task t = Task.Run(() => { GetSumResultForPosition(mResult, m1, m2, sp, ep); });
+                    tasks.Add(t);
                     starti = endi;
                     startj = endj;
                 }
@@ -218,13 +259,14 @@ namespace MatrixOperations
                 {
                     int[] sp = { starti, startj };
                     int[] ep = { mResult.NrRows - 1, mResult.NrColumns - 1 };
-                    await Task.Run(() => { GetSumResultForPosition(mResult, m1, m2, sp, ep); });
+                    Task t = Task.Run(() => { GetSumResultForPosition(mResult, m1, m2, sp, ep); });
+                    tasks.Add(t);
                     i = totalElems;
                 }
 
                 endj++;
             }
-
+            foreach (Task t in tasks) t.Wait();
             return mResult;
         }
 
@@ -293,15 +335,12 @@ namespace MatrixOperations
 
             int totalElems = mResult.NrRows * mResult.NrColumns;
             int nrOfOperationsPerThread = totalElems / nrOfThreads;
-
             int starti = 0;
             int startj = 0;
             int endi = 0;
             int endj = 0;
             CountdownEvent countdown = new CountdownEvent(nrOfThreads);
-
             int j = 0;
-
             j = 0;
             for (int i = 1; i <= totalElems; i++)
             {
@@ -415,7 +454,6 @@ namespace MatrixOperations
             int startj = 0;
             int endi = 0;
             int endj = 0;
-
             for (int i = 1; i <= totalElems; i++)
             {
                 if (endj == mResult.NrColumns)
@@ -429,7 +467,6 @@ namespace MatrixOperations
                     int[] sp = {starti, startj};
                     int[] ep = {endi, endj};
                     await Task.Run(() => GetMultiplicationResultForPosition(mResult, m1, m2, sp, ep));
-
                     starti = endi;
                     startj = endj;
                 }
