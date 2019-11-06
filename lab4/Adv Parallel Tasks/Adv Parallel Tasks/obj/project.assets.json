@@ -676,23 +676,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Vlad\\.nuget\\packages\\": {},
+    "C:\\Users\\vladd\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Vlad\\Desktop\\parallel and distributed computing\\parallel-and-distributed-computing\\lab4\\Adv Parallel Tasks\\Adv Parallel Tasks\\Complex Synchronization.csproj",
+      "projectUniqueName": "C:\\Users\\vladd\\Desktop\\parallel-and-distributed-computing\\lab4\\Adv Parallel Tasks\\Adv Parallel Tasks\\Complex Synchronization.csproj",
       "projectName": "Complex Synchronization",
-      "projectPath": "C:\\Users\\Vlad\\Desktop\\parallel and distributed computing\\parallel-and-distributed-computing\\lab4\\Adv Parallel Tasks\\Adv Parallel Tasks\\Complex Synchronization.csproj",
-      "packagesPath": "C:\\Users\\Vlad\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Vlad\\Desktop\\parallel and distributed computing\\parallel-and-distributed-computing\\lab4\\Adv Parallel Tasks\\Adv Parallel Tasks\\obj\\",
+      "projectPath": "C:\\Users\\vladd\\Desktop\\parallel-and-distributed-computing\\lab4\\Adv Parallel Tasks\\Adv Parallel Tasks\\Complex Synchronization.csproj",
+      "packagesPath": "C:\\Users\\vladd\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\vladd\\Desktop\\parallel-and-distributed-computing\\lab4\\Adv Parallel Tasks\\Adv Parallel Tasks\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Vlad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\vladd\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -717,7 +717,6 @@
       "netcoreapp2.0": {
         "dependencies": {
           "Microsoft.NETCore.App": {
-            "suppressParent": "All",
             "target": "Package",
             "version": "[2.0.0, )",
             "autoReferenced": true

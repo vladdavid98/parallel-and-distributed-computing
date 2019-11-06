@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\vladd\\Desktop\\parallel-and-distributed-computing\\lab4\\Adv Parallel Tasks\\Adv Parallel Tasks\\Complex Synchronization.csproj": {}
+    "C:\\Users\\vladd\\Desktop\\parallel-and-distributed-computing\\lab5\\Futures and continuations\\Futures and continuations.csproj": {}
   },
   "projects": {
-    "C:\\Users\\vladd\\Desktop\\parallel-and-distributed-computing\\lab4\\Adv Parallel Tasks\\Adv Parallel Tasks\\Complex Synchronization.csproj": {
+    "C:\\Users\\vladd\\Desktop\\parallel-and-distributed-computing\\lab5\\Futures and continuations\\Futures and continuations.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vladd\\Desktop\\parallel-and-distributed-computing\\lab4\\Adv Parallel Tasks\\Adv Parallel Tasks\\Complex Synchronization.csproj",
-        "projectName": "Complex Synchronization",
-        "projectPath": "C:\\Users\\vladd\\Desktop\\parallel-and-distributed-computing\\lab4\\Adv Parallel Tasks\\Adv Parallel Tasks\\Complex Synchronization.csproj",
+        "projectUniqueName": "C:\\Users\\vladd\\Desktop\\parallel-and-distributed-computing\\lab5\\Futures and continuations\\Futures and continuations.csproj",
+        "projectName": "Futures and continuations",
+        "projectPath": "C:\\Users\\vladd\\Desktop\\parallel-and-distributed-computing\\lab5\\Futures and continuations\\Futures and continuations.csproj",
         "packagesPath": "C:\\Users\\vladd\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vladd\\Desktop\\parallel-and-distributed-computing\\lab4\\Adv Parallel Tasks\\Adv Parallel Tasks\\obj\\",
+        "outputPath": "C:\\Users\\vladd\\Desktop\\parallel-and-distributed-computing\\lab5\\Futures and continuations\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -21,14 +21,14 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.0"
+          "netcoreapp2.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.0": {
+          "netcoreapp2.1": {
             "projectReferences": {}
           }
         },
@@ -39,11 +39,11 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.0": {
+        "netcoreapp2.1": {
           "dependencies": {
             "Microsoft.NETCore.App": {
               "target": "Package",
-              "version": "[2.0.0, )",
+              "version": "[2.1.0, )",
               "autoReferenced": true
             }
           },
