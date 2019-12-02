@@ -1,8 +1,8 @@
 using System;
 
-namespace Lab5.util {
+namespace Futures_and_continuations.util {
     public class HttpUtils {
-        public static readonly int HTTP_PORT = 80;
+        public static readonly int HttpPort = 80;
 
         /**
          * Return the response body from the response content.
@@ -14,7 +14,7 @@ namespace Lab5.util {
          *
          * If the body has length 0 (in case it is just a HTTP redirect), it will return the empty string.
          */
-        public static string getResponseBody(string responseContent) {
+        public static string GetResponseBody(string responseContent) {
             var responseParts = responseContent.Split(new[] {"\r\n\r\n"}, StringSplitOptions.RemoveEmptyEntries);
 
             return responseParts.Length > 1 ? responseParts[1] : "";
@@ -23,14 +23,14 @@ namespace Lab5.util {
         /**
          * The header is fully obtained when the server sends two new lines (aka one empty line).
          */
-        public static bool responseHeaderFullyObtained(string responseContent) {
+        public static bool ResponseHeaderFullyObtained(string responseContent) {
             return responseContent.Contains("\r\n\r\n");
         }
 
         /**
          * Parses the HTTP Response content and returns the value of the "Content-Length" header.
          */
-        public static int getContentLength(string responseContent) {
+        public static int GetContentLength(string responseContent) {
             var contentLength = 0;
             var responseLines = responseContent.Split('\r', '\n');
 
@@ -50,7 +50,7 @@ namespace Lab5.util {
         /**
          * Creates the request headers for the specified hostname.
          */
-        public static string getRequestString(string hostname, string endpoint) {
+        public static string GetRequestString(string hostname, string endpoint) {
             return "GET " + endpoint + " HTTP/1.1\r\n" +
                    "Host: " + hostname + "\r\n" +
                    "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36\r\n" +

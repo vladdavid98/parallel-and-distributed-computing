@@ -9,3 +9,13 @@ C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab5\Futures and conti
 C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab5\Futures and continuations\obj\Debug\netcoreapp2.1\Futures and continuations.AssemblyInfo.cs
 C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab5\Futures and continuations\obj\Debug\netcoreapp2.1\Futures and continuations.dll
 C:\Users\vladd\Desktop\parallel-and-distributed-computing\lab5\Futures and continuations\obj\Debug\netcoreapp2.1\Futures and continuations.pdb
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab5\Futures and continuations\bin\Debug\netcoreapp2.1\Futures and continuations.deps.json
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab5\Futures and continuations\bin\Debug\netcoreapp2.1\Futures and continuations.runtimeconfig.json
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab5\Futures and continuations\bin\Debug\netcoreapp2.1\Futures and continuations.runtimeconfig.dev.json
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab5\Futures and continuations\bin\Debug\netcoreapp2.1\Futures and continuations.dll
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab5\Futures and continuations\bin\Debug\netcoreapp2.1\Futures and continuations.pdb
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab5\Futures and continuations\obj\Debug\netcoreapp2.1\Futures and continuations.csprojAssemblyReference.cache
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab5\Futures and continuations\obj\Debug\netcoreapp2.1\Futures and continuations.AssemblyInfoInputs.cache
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab5\Futures and continuations\obj\Debug\netcoreapp2.1\Futures and continuations.AssemblyInfo.cs
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab5\Futures and continuations\obj\Debug\netcoreapp2.1\Futures and continuations.dll
+C:\Users\Vlad\Desktop\parallel and distributed computing\parallel-and-distributed-computing\lab5\Futures and continuations\obj\Debug\netcoreapp2.1\Futures and continuations.pdb

@@ -4,29 +4,29 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using Lab5.model;
-using Lab5.util;
+using Futures_and_continuations.model;
+using Futures_and_continuations.util;
 
-namespace Lab5.implementation {
+namespace Futures_and_continuations.implementation {
     public static class AsyncTaskMechanism {
-        private static List<string> HOSTS;
+        private static List<string> _hosts;
 
-        public static void run(List<string> hostnames) {
-            HOSTS = hostnames;
+        public static void Run(List<string> hostnames) {
+            _hosts = hostnames;
 
             var tasks = new List<Task>();
 
-            for (var i = 0; i < HOSTS.Count; i++) {
-                tasks.Add(Task.Factory.StartNew(doStart, i));
+            for (var i = 0; i < _hosts.Count; i++) {
+                tasks.Add(Task.Factory.StartNew(DoStart, i));
             }
 
             Task.WaitAll(tasks.ToArray());
         }
 
-        private static void doStart(object idObject) {
+        private static void DoStart(object idObject) {
             var id = (int) idObject;
 
-            StartClient(HOSTS[id], id);
+            StartClient(_hosts[id], id);
         }
 
         /**
@@ -36,7 +36,7 @@ namespace Lab5.implementation {
             // establish the remote endpoint of the server  
             var ipHostInfo = Dns.GetHostEntry(host.Split('/')[0]);
             var ipAddress = ipHostInfo.AddressList[0];
-            var remoteEndpoint = new IPEndPoint(ipAddress, HttpUtils.HTTP_PORT);
+            var remoteEndpoint = new IPEndPoint(ipAddress, HttpUtils.HttpPort);
 
             // create the TCP/IP socket
             var client = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
@@ -54,7 +54,7 @@ namespace Lab5.implementation {
             await ConnectWrapper(state);
 
             // request data from the server
-            await SendWrapper(state, HttpUtils.getRequestString(state.hostname, state.endpoint));
+            await SendWrapper(state, HttpUtils.GetRequestString(state.hostname, state.endpoint));
 
             // receive the response from the server
             await ReceiveWrapper(state);
@@ -62,7 +62,7 @@ namespace Lab5.implementation {
             // write the response details to the console
             Console.WriteLine(
                 "{0} --> Response received : expected {1} chars in body, got {2} chars (headers + body)", 
-                id, HttpUtils.getContentLength(state.responseContent.ToString()), state.responseContent.Length);
+                id, HttpUtils.GetContentLength(state.responseContent.ToString()), state.responseContent.Length);
 
             // release the socket
             client.Shutdown(SocketShutdown.Both);
@@ -116,7 +116,7 @@ namespace Lab5.implementation {
 
         private static async Task ReceiveWrapper(StateObject state) {
             // begin receiving the data from the server
-            state.socket.BeginReceive(state.buffer, 0, StateObject.BUFFER_SIZE, 0, ReceiveCallback, state);
+            state.socket.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0, ReceiveCallback, state);
 
             await Task.FromResult<object>(state.receiveDone.WaitOne());
         }
@@ -134,18 +134,18 @@ namespace Lab5.implementation {
                 state.responseContent.Append(Encoding.ASCII.GetString(state.buffer, 0, bytesRead));
 
                 // if the response header has not been fully obtained, get the next chunk of data
-                if (!HttpUtils.responseHeaderFullyObtained(state.responseContent.ToString())) {
-                    clientSocket.BeginReceive(state.buffer, 0, StateObject.BUFFER_SIZE, 0, ReceiveCallback, state);
+                if (!HttpUtils.ResponseHeaderFullyObtained(state.responseContent.ToString())) {
+                    clientSocket.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0, ReceiveCallback, state);
                 } else {
                     // header has been fully obtained
                     // get the body
-                    var responseBody = HttpUtils.getResponseBody(state.responseContent.ToString());
+                    var responseBody = HttpUtils.GetResponseBody(state.responseContent.ToString());
 
                     // the custom header parser is being used to check if the data received so far has the length
                     // specified in the response headers
-                    if (responseBody.Length < HttpUtils.getContentLength(state.responseContent.ToString())) {
+                    if (responseBody.Length < HttpUtils.GetContentLength(state.responseContent.ToString())) {
                         // if it isn't, than more data is to be retrieve
-                        clientSocket.BeginReceive(state.buffer, 0, StateObject.BUFFER_SIZE, 0, ReceiveCallback, state);
+                        clientSocket.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0, ReceiveCallback, state);
                     } else {
                         // otherwise, all the data has been received  
                         // signal that all bytes have been received  

@@ -3,16 +3,16 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
-namespace Lab5.model {
+namespace Futures_and_continuations.model {
     public class StateObject {
         // client socket
         public Socket socket = null;
 
         // size of receive buffer
-        public const int BUFFER_SIZE = 512;
+        public const int BufferSize = 512;
 
         // receive buffer  
-        public byte[] buffer = new byte[BUFFER_SIZE];
+        public byte[] buffer = new byte[BufferSize];
 
         // received data  
         public StringBuilder responseContent = new StringBuilder();
