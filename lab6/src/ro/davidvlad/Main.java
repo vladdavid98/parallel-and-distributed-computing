@@ -1,19 +1,21 @@
 package ro.davidvlad;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException, ExecutionException {
 
-//        Polynomial p = new Polynomial(7000);
-//        Polynomial q = new Polynomial(7000);
-		Polynomial p = new Polynomial(new ArrayList<Integer>(Arrays.asList(5, 4, 2, 4)));
-		Polynomial q = new Polynomial(new ArrayList<Integer>(Arrays.asList(6, 3, 7)));
+        String str1 = "1234";
+        String str2 = "5275";
+//        String str1 = BigNumberMultiplication.RandomNumberCreator(15000);
+//        String str2 = BigNumberMultiplication.RandomNumberCreator(15000);
+        Polynomial p = new Polynomial(3);
+        Polynomial q = new Polynomial(3);
+//		Polynomial p = new Polynomial(new ArrayList<Integer>(Arrays.asList(5, 4, 2, 4)));
+//		Polynomial q = new Polynomial(new ArrayList<Integer>(Arrays.asList(6, 3, 7)));
 
         System.out.println("pol p:" + p);
-        System.out.println("pol q" + q);
+        System.out.println("pol q:" + q);
         System.out.println("\n");
 
 
@@ -24,12 +26,14 @@ public class Main {
         //Karatsuba
         System.out.println(multiplication3(p, q).toString() + "\n");
         System.out.println(multiplication4(p, q).toString() + "\n");
+
+        System.out.println(bigNumberMultiplicationSequential(str1, str2));
     }
 
     private static Polynomial multiplication4(Polynomial p, Polynomial q) throws ExecutionException,
             InterruptedException {
         long startTime = System.currentTimeMillis();
-        Polynomial result4 = PolynomialOperation.multiplicationKaratsubaParallelizedForm(p, q, 4);
+        Polynomial result4 = PolynomialOperations.multiplicationKaratsubaParallelizedForm(p, q, 4);
         long endTime = System.currentTimeMillis();
         System.out.println("Karatsuba parallel multiplication of polynomials: ");
         System.out.println("Execution time : " + (endTime - startTime) + " ms");
@@ -38,7 +42,7 @@ public class Main {
 
     private static Polynomial multiplication3(Polynomial p, Polynomial q) {
         long startTime = System.currentTimeMillis();
-        Polynomial result3 = PolynomialOperation.multiplicationKaratsubaSequentialForm(p, q);
+        Polynomial result3 = PolynomialOperations.multiplicationKaratsubaSequentialForm(p, q);
         long endTime = System.currentTimeMillis();
         System.out.println("Karatsuba sequential multiplication of polynomials: ");
         System.out.println("Execution time : " + (endTime - startTime) + " ms");
@@ -47,7 +51,7 @@ public class Main {
 
     private static Polynomial multiplication2(Polynomial p, Polynomial q) throws InterruptedException {
         long startTime = System.currentTimeMillis();
-        Polynomial result2 = PolynomialOperation.multiplicationParallelizedForm(p, q, 5);
+        Polynomial result2 = PolynomialOperations.multiplicationParallelizedForm(p, q, 4);
         long endTime = System.currentTimeMillis();
         System.out.println("Simple parallel multiplication of polynomials: ");
         System.out.println("Execution time : " + (endTime - startTime) + " ms");
@@ -56,10 +60,19 @@ public class Main {
 
     private static Polynomial multiplication1(Polynomial p, Polynomial q) {
         long startTime = System.currentTimeMillis();
-        Polynomial result1 = PolynomialOperation.multiplicationSequentialForm(p, q);
+        Polynomial result1 = PolynomialOperations.multiplicationSequentialForm(p, q);
         long endTime = System.currentTimeMillis();
         System.out.println("Simple sequential multiplication of polynomials: ");
         System.out.println("Execution time : " + (endTime - startTime) + " ms");
         return result1;
+    }
+
+    private static String bigNumberMultiplicationSequential(String str1, String str2){
+        long startTime = System.currentTimeMillis();
+        String result = BigNumberOperations.MultiplySingleThread(str1, str2);
+        long endTime = System.currentTimeMillis();
+        System.out.println("Simple big number multiplication based on strings: ");
+        System.out.println("Execution time : " + (endTime - startTime) + " ms");
+        return result;
     }
 }

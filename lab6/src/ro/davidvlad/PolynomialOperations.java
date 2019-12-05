@@ -11,10 +11,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class PolynomialOperation {
-
-    public static final int OPTIM_DEGREE = 100;
-    public static final int OPTIM_DEGREE_SIMPLE_MULT = 20;
+public class PolynomialOperations {
 
     /**
      * Simple sequenctial multiplication operation over 2 polynomials.
@@ -24,14 +21,15 @@ public class PolynomialOperation {
      * @param p2 - Polynomial
      * @return the resulted polynomials after the multiplication
      */
+
     public static Polynomial multiplicationSequentialForm(Polynomial p1, Polynomial p2) {
         int sizeOfResultCoefficientList = p1.getDegree() + p2.getDegree() + 1;
         List<Integer> coefficients = new ArrayList<>();
         for (int i = 0; i < sizeOfResultCoefficientList; i++) {
             coefficients.add(0);
         }
-        for (int i = 0; i < p1.getCoefficients().size(); i++) {
-            for (int j = 0; j < p2.getCoefficients().size(); j++) {
+        for (int i = 0; i < p1.getLength(); i++) {
+            for (int j = 0; j < p2.getLength(); j++) {
                 int index = i + j;
                 int value = p1.getCoefficients().get(i) * p2.getCoefficients().get(j);
                 coefficients.set(index, coefficients.get(index) + value);
@@ -50,13 +48,11 @@ public class PolynomialOperation {
      */
     public static Polynomial multiplicationParallelizedForm(Polynomial p1, Polynomial p2, int nrOfThreads) throws
             InterruptedException {
-        //initialize result polynomial with coefficients = 0
         int sizeOfResultCoefficientList = p1.getDegree() + p2.getDegree() + 1;
         List<Integer> coefficients = IntStream.of(new int[sizeOfResultCoefficientList]).boxed().collect(Collectors
                 .toList());
         Polynomial result = new Polynomial(coefficients);
 
-        //calculate the coefficients
 
         ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(nrOfThreads);
         int step = result.getLength() / nrOfThreads;
@@ -67,7 +63,7 @@ public class PolynomialOperation {
         int end;
         for (int i = 0; i < result.getLength(); i += step) {
             end = i + step;
-            MultiplicationTask task = new MultiplicationTask(i, end, p1, p2, result);
+            MultiplicationTaskPolynomial task = new MultiplicationTaskPolynomial(i, end, p1, p2, result);
             executor.execute(task);
         }
 
@@ -77,6 +73,13 @@ public class PolynomialOperation {
         return result;
     }
 
+    /**
+     * Multiply two polynomials sequentially using Karatsuba method
+     *
+     * @param p1 - Polynomial
+     * @param p2 - Polynomial
+     * @return the resulted polynomials after the multiplication
+     */
     public static Polynomial multiplicationKaratsubaSequentialForm(Polynomial p1, Polynomial p2) {
         if (p1.getDegree() < 2 || p2.getDegree() < 2) {
             return multiplicationSequentialForm(p1, p2);
@@ -102,14 +105,14 @@ public class PolynomialOperation {
     /**
      * Multiply two polynomials in parallel manner using Karatsuba method
      *
-     * @param p1
-     * @param p2
+     * @param p1 - Polynomial
+     * @param p2 - Polynomial
      * @param currentDepth - the dimension of the polynomial
-     * @return
+     * @return the resulted polynomials after the multiplication
      */
     public static Polynomial multiplicationKaratsubaParallelizedForm(Polynomial p1, Polynomial p2, int currentDepth)
             throws ExecutionException, InterruptedException {
-        //E impartit deja de 4 ori si pentru ca e recursiv, nu mai împarțim in mai mult pt ca nu încape pe stack-ul
+        // E impartit deja de 4 ori si pentru ca e recursiv, nu mai împarțim in mai mult pt ca nu încape pe stack-ul
         // intern
         if (currentDepth > 4) {
             return multiplicationKaratsubaSequentialForm(p1, p2);
@@ -127,7 +130,7 @@ public class PolynomialOperation {
 
         ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
         Callable<Polynomial> task1 = () -> multiplicationKaratsubaParallelizedForm(lowP1, lowP2, currentDepth + 1);
-        Callable<Polynomial> task2 = () -> multiplicationKaratsubaParallelizedForm(PolynomialOperation.add(lowP1, highP1), PolynomialOperation
+        Callable<Polynomial> task2 = () -> multiplicationKaratsubaParallelizedForm(PolynomialOperations.add(lowP1, highP1), PolynomialOperations
                 .add(lowP2, highP2), currentDepth + 1);
         Callable<Polynomial> task3 = () -> multiplicationKaratsubaParallelizedForm(highP1, highP2, currentDepth);
 
@@ -170,7 +173,7 @@ public class PolynomialOperation {
     }
 
     /**
-     * Simple sequenctial addition operation over 2 polynomials.
+     * Simple sequential addition operation over 2 polynomials.
      *
      * @param p1 - Polynomial
      * @param p2 - Polynomial
@@ -210,7 +213,7 @@ public class PolynomialOperation {
     }
 
     /**
-     * Simple sequenctial subtraction operation over 2 polynomials.
+     * Simple sequential subtraction operation over 2 polynomials.
      *
      * @param p1 - Polynomial
      * @param p2 - Polynomial

@@ -3,12 +3,12 @@ package ro.davidvlad;
 /**
  * This class is the task for the simple multiplication, with time complexity O(n^2)
  */
-public class MultiplicationTask implements Runnable {
+public class MultiplicationTaskPolynomial implements Runnable {
     private int start;
     private int end;
     private Polynomial p1, p2, result;
 
-    public MultiplicationTask(int start, int end, Polynomial p1, Polynomial p2, Polynomial result) {
+    public MultiplicationTaskPolynomial(int start, int end, Polynomial p1, Polynomial p2, Polynomial result) {
         this.start = start;
         this.end = end;
         this.p1 = p1;
@@ -17,7 +17,7 @@ public class MultiplicationTask implements Runnable {
     }
 
     /**
-     * Calculate coefficients from the result in the interval: [starting index, ending index)
+     * Calculate coefficients from the result in the interval: [starting index, ending index]
      */
     @Override
     public void run() {
@@ -36,3 +36,5 @@ public class MultiplicationTask implements Runnable {
         }
     }
 }
+
+

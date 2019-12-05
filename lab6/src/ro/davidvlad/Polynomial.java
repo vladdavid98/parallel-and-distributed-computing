@@ -6,7 +6,7 @@ import java.util.Random;
 
 /**
  * Contains the list of the coefficients of the polynomial.
- * The first coefficients in the list corresponds to x^0 and the last corresponds to the biggest power .
+ * The first coefficient in the list corresponds to x^0 and the last corresponds to the biggest power .
  */
 public class Polynomial {
     private static final int BOUND = 10;
@@ -16,19 +16,12 @@ public class Polynomial {
         this.coefficients = coefficients;
     }
 
-    /**
-     * Generates a polynomial with random coefficients, with a given degree.
-     *
-     * @param degree - Integer
-     */
     public Polynomial(int degree) {
         coefficients = new ArrayList<>(degree + 1);
-        //Generate the rest of the coefficients
         Random randomGenerator = new Random();
         for (int i = 0; i < degree; i++) {
             coefficients.add(randomGenerator.nextInt(BOUND));
         }
-        //the coefficient of the biggest power has to be different than 0
         coefficients.add(randomGenerator.nextInt(BOUND) + 1);
     }
 
