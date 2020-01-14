@@ -19,8 +19,8 @@ namespace PDP_Project
         public Form1()
         {
             InitializeComponent();
-//            Im1 = new Bitmap(pictureBox1.Image);
-//            Im2 = new Bitmap(pictureBox2.Image);
+            Im1 = new Bitmap(pictureBox1.Image);
+            Im2 = new Bitmap(pictureBox2.Image);
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -35,7 +35,7 @@ namespace PDP_Project
             }
             catch (Exception exception)
             {
-                Debug.WriteLine("Something went wrong when opening image.");
+                Debug.WriteLine("Something went wrong when opening image. Exception: "+exception.Message);
             }
 
         }
@@ -62,7 +62,7 @@ namespace PDP_Project
             }
             catch (Exception exception)
             {
-                Debug.WriteLine("Something went wrong when saving image.");
+                Debug.WriteLine("Something went wrong when saving image. Exception: "+exception.Message);
             }
         }
 
