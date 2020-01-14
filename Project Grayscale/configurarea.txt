@@ -1,0 +1,7 @@
+C/C++ -> General -> additional include directories = $(MSMPI_INC);$(MSMPI_INC)\x86
+Linker -> General -> additional library directories = $(MSMPI_LIB32)
+Linker -> Input -> additional dependencies = (add "msmpi.lib" here)
+
+mpiexec -n 2 PDP_Project_MPI.exe
+
+PS C:\Users\Vlad\Desktop\Project Grayscale\PDP Project MPI\bin\Debug> mpiexec -n 4 PDP_Project_MPI.exe

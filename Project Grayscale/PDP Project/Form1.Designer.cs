@@ -40,6 +40,7 @@
             this.swapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.grayscaleMultithreadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -104,6 +105,7 @@
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.grayscaleToolStripMenuItem,
+            this.grayscaleMultithreadToolStripMenuItem,
             this.swapToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
@@ -112,14 +114,14 @@
             // grayscaleToolStripMenuItem
             // 
             this.grayscaleToolStripMenuItem.Name = "grayscaleToolStripMenuItem";
-            this.grayscaleToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.grayscaleToolStripMenuItem.Text = "Grayscale";
+            this.grayscaleToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.grayscaleToolStripMenuItem.Text = "GrayscaleSimple";
             this.grayscaleToolStripMenuItem.Click += new System.EventHandler(this.grayscaleToolStripMenuItem_Click);
             // 
             // swapToolStripMenuItem
             // 
             this.swapToolStripMenuItem.Name = "swapToolStripMenuItem";
-            this.swapToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.swapToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.swapToolStripMenuItem.Text = "Swap";
             this.swapToolStripMenuItem.Click += new System.EventHandler(this.swapToolStripMenuItem_Click);
             // 
@@ -131,6 +133,13 @@
             // saveFileDialog1
             // 
             this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
+            // 
+            // grayscaleMultithreadToolStripMenuItem
+            // 
+            this.grayscaleMultithreadToolStripMenuItem.Name = "grayscaleMultithreadToolStripMenuItem";
+            this.grayscaleMultithreadToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.grayscaleMultithreadToolStripMenuItem.Text = "GrayscaleMultithread";
+            this.grayscaleMultithreadToolStripMenuItem.Click += new System.EventHandler(this.grayscaleMultithreadToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -166,6 +175,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem swapToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem grayscaleMultithreadToolStripMenuItem;
     }
 }
 
