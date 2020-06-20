@@ -1,0 +1,114 @@
+#include <mpi.h>
+#include <vector>
+#include <iostream>
+
+// compute the circular convolution of 2 vectors of the same length
+
+int convolution(std::vector<int> a, std::vector<int> b, int N, int i)
+{
+	int Ci = 0;
+	for (int j = 0; j < N; j++)
+	{
+		Ci += a[(i - j + N) / N] * b[j];
+	}
+	return Ci;
+}
+
+
+int main(int argc, char** argv)
+{
+	// Initialize the MPI environment
+	MPI_Init(nullptr, nullptr);
+
+	// Get the number of processes
+	int world_size;
+	MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+
+	// Get the rank of the process
+	int world_rank;
+	MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
+
+
+	if (world_rank == 0) // master
+	{
+		std::vector<int> a = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+		std::vector<int> b = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+		std::vector<int> c = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+		int N = a.size();
+
+		const int slice_size = N / world_size;
+		const int rest = N % world_size;
+
+
+		for (int worker_nr = 1; worker_nr < world_size; worker_nr++)
+		{
+			int starting_index = slice_size + rest + (worker_nr - 1) * slice_size;
+			int ending_index = starting_index + slice_size;
+
+			// send N, a, b, starting index, ending index
+			MPI_Send(&N, 1, MPI_INT, worker_nr, 0, MPI_COMM_WORLD);
+			MPI_Send(&a[0], N, MPI_INT, worker_nr, 0, MPI_COMM_WORLD);
+			MPI_Send(&b[0], N, MPI_INT, worker_nr, 0, MPI_COMM_WORLD);
+			MPI_Send(&starting_index, 1, MPI_INT, worker_nr, 0, MPI_COMM_WORLD);
+			MPI_Send(&ending_index, 1, MPI_INT, worker_nr, 0, MPI_COMM_WORLD);
+		}
+
+		for (int i = 0; i < slice_size + rest; i++)
+		{
+			c[i] = convolution(a, b, N, i);
+		}
+
+		for (int worker_nr = 1; worker_nr < world_size; worker_nr++)
+		{
+			const int starting_index = slice_size + rest + (worker_nr - 1) * slice_size;
+			const int ending_index = starting_index + slice_size;
+
+			std::vector<int> recv_vect;
+			recv_vect.resize(slice_size);
+
+			MPI_Recv(&recv_vect[0], slice_size, MPI_INT, worker_nr, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
+			int index = 0;
+			for (int i = starting_index; i < ending_index; i++)
+			{
+				c[i] = recv_vect[index];
+				index++;
+			}
+		}
+
+
+		for (auto e : c)
+		{
+			std::cout << e << " ";
+		}
+	}
+	else // slaves
+	{
+		int N = 0, starting_index = 0, ending_index = 0;
+		std::vector<int> a, b, c;
+
+		MPI_Recv(&N, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
+		a.resize(N);
+		b.resize(N);
+
+
+		MPI_Recv(&a[0], N, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+		MPI_Recv(&b[0], N, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
+
+		MPI_Recv(&starting_index, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+		MPI_Recv(&ending_index, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
+
+		for (int i = starting_index; i < ending_index; i++)
+		{
+			c.push_back(convolution(a, b, N, i));
+		}
+		MPI_Send(&c[0], c.size(), MPI_INT, 0, 0, MPI_COMM_WORLD);
+	}
+
+
+	// Finalize the MPI environment.
+	MPI_Finalize();
+}

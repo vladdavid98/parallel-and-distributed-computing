@@ -1,0 +1,47 @@
+#include <iostream>
+#include <fstream>
+#include <thread>
+#include <mutex>
+
+
+int main()
+{
+	std::once_flag flag;
+
+	auto f = [](int i)
+	{
+		std::cout << i << std::endl;
+	};
+
+	std::thread t1{
+		[&]
+		{
+			std::call_once(flag, f, 1);
+		}
+	};
+	std::thread t2{
+		[&]
+		{
+			std::call_once(flag, f, 2);
+		}
+	};
+	std::thread t3{
+		[&]
+		{
+			std::call_once(flag, f, 3);
+		}
+	};
+	std::thread t4{
+		[&]
+		{
+			std::call_once(flag, f, 4);
+		}
+	};
+
+	t1.join();
+	t2.join();
+	t3.join();
+	t4.join();
+
+	return 0;
+}

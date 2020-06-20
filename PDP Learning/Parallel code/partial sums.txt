@@ -1,0 +1,119 @@
+#include <condition_variable>
+#include <list>
+#include <functional>
+#include <vector>
+#include <iostream>
+#include <chrono>
+#include <algorithm>
+#include <future>
+
+// partial sums
+
+std::vector<long> compute_slice(const std::vector<long> values, const long start_index, const long slice_size)
+{
+	std::vector<long> results;
+	results.reserve(slice_size);
+	long s = 0;
+
+	for (long i = start_index; i < start_index + slice_size; i++)
+	{
+		s += values[i];
+		results.push_back(s);
+	}
+	return results;
+}
+
+std::vector<long> compute_final_vectors(std::vector<long> vect, long to_sum)
+{
+	for (long& i : vect)
+	{
+		i += to_sum;
+	}
+	return vect;
+}
+
+
+int main()
+{
+	long nr_threads = 16;
+	std::vector<std::future<std::vector<long>>> futures_1;
+	futures_1.reserve(nr_threads);
+	std::vector<std::future<std::vector<long>>> futures_2;
+	futures_2.reserve(nr_threads);
+
+
+	std::vector<long> values(1000000);
+
+	long n = values.size();
+	long slice_size = n / nr_threads;
+	long rest = n % nr_threads;
+
+	// Generate Random values 
+	auto f = []() -> long { return rand() % 10; };
+
+	// Fill up the vector 
+	std::generate(values.begin(), values.end(), f);
+
+	std::vector<long> result;
+	result.resize(values.size());
+
+	////////////////////////////////////
+	auto start = std::chrono::high_resolution_clock::now();
+
+	// int s = 0;
+	// int i = 0;
+	// for (int e : values)
+	// {
+	// 	s += e;
+	// 	result[i] = s;
+	// 	i++;
+	// }
+
+	// each thread will sum up its slices.
+
+
+	long start_index = rest+slice_size;
+
+	for (long i = 0; i < nr_threads-1; i++)
+	{
+		futures_1.push_back(std::async(compute_slice, values, start_index, slice_size));
+		start_index += slice_size;
+	}
+	long s = 0;
+	for(long i = 0;i< rest + slice_size;i++)
+	{
+		s += values[i];
+		result[i] = s;
+	}
+	
+	long offset = result[rest+slice_size-1];
+	// then each future adds the last number from the future before it, to all of its numbers
+	for (long i = 0; i < nr_threads-1; i++)
+	{
+		std::vector<long> res = futures_1[i].get();
+		futures_2.push_back(std::async(compute_final_vectors, res, offset));
+
+		offset += res.back();
+	}
+	long i = rest+slice_size;
+	for (auto& f : futures_2)
+	{
+		std::vector<long> future_result = f.get();
+		for (long e : future_result)
+		{
+			result[i] = e;
+			i++;
+		}
+	}
+
+	// then put all the vectors together.
+
+
+	////////////////////////////////////
+	auto stop = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+	std::cout << "Duration, in microseconds: " << duration.count() << std::endl;
+
+
+	std::cout << "final sum: " << result.back() << std::endl;
+}

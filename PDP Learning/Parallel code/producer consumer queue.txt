@@ -1,0 +1,77 @@
+#include <iostream>
+#include <fstream>
+#include <chrono>
+#include <thread>
+#include <condition_variable>
+#include <list>
+#include <shared_mutex>
+
+template <typename T>
+class ProducerConsumerQueue
+{
+	std::list<T> items;
+	std::condition_variable cv;
+	std::mutex mtx;
+
+public:
+	void enqueue(T v)
+	{
+		std::unique_lock<std::mutex> lck(mtx);
+		cv.wait(lck, [this]
+		{
+			return items.size() < 100;
+		});
+		items.push_back(v);
+		cv.notify_one();
+	}
+
+	T dequeue()
+	{
+		std::unique_lock<std::mutex> lck(mtx);
+		cv.wait(lck, [this]
+		{
+			return !items.empty();
+		});
+		{
+			T ret = items.front();
+			items.pop_front();
+			cv.notify_one();
+			return ret;
+		}
+	}
+
+	int howManyItems()
+	{
+		return items.size();
+	}
+};
+
+
+int main()
+{
+	ProducerConsumerQueue<int> pcq;
+
+	int s = 0;
+
+	std::thread t1{
+		[&]
+		{
+			for (int i = 0; i <= 200; i++)
+			{
+				pcq.enqueue(i);
+				std::this_thread::sleep_for(std::chrono::milliseconds(5));
+			}
+		}
+	};
+	int deq;
+	while (true)
+	{
+		deq = pcq.dequeue();
+		s += deq;
+		std::cout << s << " " << pcq.howManyItems() << std::endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+	}
+
+
+	return 0;
+}

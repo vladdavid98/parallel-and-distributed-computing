@@ -1,0 +1,29 @@
+#include <iostream>
+#include <fstream>
+#include <thread>
+#include <future>
+
+
+
+int main()
+{
+	auto i = 0;
+	std::promise<void> prom;
+
+	std::future<void> fut = prom.get_future(); // here, the future is a primitive used to notify the main thread of the fact that some other thread has done its work
+
+	std::thread t{
+		[&]
+		{
+			i = 1;
+			prom.set_value();
+		}
+	};
+
+	fut.wait();
+	std::cout << i << std::endl;
+
+	t.join();
+
+	return 0;
+}

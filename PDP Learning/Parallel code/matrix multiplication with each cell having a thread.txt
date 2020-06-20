@@ -1,0 +1,111 @@
+#include <iostream>
+#include <fstream>
+#include <thread>
+#include <vector>
+#include <mutex>
+#include <future>
+
+//// product of 2 matrices.
+
+/*
+ *  if matrix A has L1 lines and C1 columns
+ *  and matrix B has L2 lines and C2 columns
+ *
+ *  then to be able to multiply, we need C1 = L2
+ *  and the resulting matrix will have L1 lines and C2 columns
+ */
+
+void print_matrix(std::vector<std::vector<int>> matrix)
+{
+	for (auto line : matrix)
+	{
+		for (auto elem : line)
+		{
+			std::cout << elem << " ";
+		}
+		std::cout << std::endl;
+	}
+	std::cout << std::endl;
+}
+
+int find_element(std::vector<std::vector<int>> matrix_a, std::vector<std::vector<int>> matrix_b, int elem_line_index,
+                 int elem_column_index)
+{
+	//int wanted_line_in_a = elem_line_index;
+	//int wanted_column_in_b = elem_column_index;
+
+	int line_pos_a = elem_line_index;
+	int column_pos_a = 0;
+
+	int line_pos_b = 0;
+	int column_pos_b = elem_column_index;
+
+	int res = 0;
+	for (int i = 0; i < matrix_a[0].size(); i++)
+	{
+		res += matrix_a[line_pos_a][column_pos_a] * matrix_b[line_pos_b][column_pos_b];
+		column_pos_a++;
+		line_pos_b++;
+	}
+	return res;
+}
+
+
+int main()
+{
+	std::vector<std::vector<int>> a = {
+		{1, 2, 3,1},
+		{4, 5, 6,2},
+		{7, 8, 9,3}
+	};
+	std::vector<std::vector<int>> b = {
+		{3, 2, 1},
+		{4, 2, 2},
+		{3, 1, 2},
+		{1, 1, 2}
+	};
+
+	int L1 = a.size();
+	int C1 = a[0].size();
+
+	int L2 = b.size();
+	int C2 = b[0].size();
+
+	std::vector<std::vector<int>> result_matrix;
+	std::vector<int> zeroes;
+	zeroes.resize(C2);
+
+	for (int i = 0; i < L1; i++)
+	{
+		result_matrix.push_back(zeroes);
+	}
+
+	print_matrix(result_matrix);
+
+
+	std::vector<std::future<int>> futures;
+
+
+	for (int i = 0; i < result_matrix.size(); i++)
+	{
+		for (int j = 0; j < result_matrix[0].size(); j++)
+		{
+			futures.push_back(std::async(find_element, a, b, i, j));
+		}
+	}
+	int i = 0;
+	int j = 0;
+	for (auto& f : futures)
+	{
+		result_matrix[i][j] = f.get();
+		j++;
+		if (j == result_matrix[0].size())
+		{
+			i++;
+			j = 0;
+		}
+	}
+
+
+	print_matrix(result_matrix);
+}

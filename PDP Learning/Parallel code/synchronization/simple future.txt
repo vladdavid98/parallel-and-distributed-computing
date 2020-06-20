@@ -1,0 +1,19 @@
+#include <iostream>
+#include <fstream>
+#include <thread>
+#include <future>
+
+// trying to get the data held by the future results in the future waiting until the data becomes available
+
+
+int main()
+{
+	std::future<int> fut = std::async([]
+	{
+		return 2;
+	});
+
+	std::cout << fut.get() << std::endl;
+
+	return 0;
+}

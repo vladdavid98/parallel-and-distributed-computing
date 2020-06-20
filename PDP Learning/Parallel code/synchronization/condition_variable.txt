@@ -1,0 +1,38 @@
+#include <iostream>
+#include <fstream>
+#include <thread>
+#include <condition_variable>
+#include <string>
+#include <mutex>
+
+// condition variables are used normally when you have some producer and some consumer threads. in this case, t is consumer, main is producer.
+
+std::string s;
+std::condition_variable cv;
+std::mutex m;
+
+void logData()
+{
+	std::unique_lock<std::mutex> lock{ m };
+
+	cv.wait(lock, [] {return !s.empty(); }); // the cv waits for the "cv.notify_one();" line, then opens
+	
+	std::cout << s << std::endl;
+}
+
+
+int main()
+{
+	std::thread t{ logData };
+
+	{
+		std::unique_lock<std::mutex> lock{ m };
+		s = "some data";
+	}
+
+	cv.notify_one();
+
+	t.join();
+	
+	return 0;
+}

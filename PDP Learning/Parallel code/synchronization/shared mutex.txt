@@ -1,0 +1,53 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <thread>
+#include <atomic>
+#include <shared_mutex>
+
+class Widget
+{
+public:
+	int getData() const
+	{
+		std::shared_lock<std::shared_mutex> lock{mMutex};
+		return mData;
+	}
+
+	void setData(int value)
+	{
+		std::unique_lock<std::shared_mutex> lock{mMutex};
+		mData = value;
+	}
+
+private:
+	int mData = 0;
+	mutable std::shared_mutex mMutex;
+};
+
+int main()
+{
+	Widget w;
+
+	std::thread t1{
+		[&]
+		{
+			std::cout << w.getData() << std::endl;
+		}
+	};
+
+	std::thread t2{
+		[&]
+		{
+			std::cout << w.getData() << std::endl;
+		}
+	};
+
+	w.setData(1);
+
+	t1.join();
+	t2.join();
+
+
+	return 0;
+}
